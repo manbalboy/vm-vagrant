@@ -1,0 +1,61 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  N = 2 # max number of worker nodes
+  
+  #=============#
+  # Master Node #
+  #=============#
+
+    config.vm.define "master" do |cfg|
+      cfg.vm.box = "whatwant/Ubuntu-20.04-Server"
+      cfg.vm.box_version = "0.2.0"
+      
+      cfg.vm.hostname = "master"
+      cfg.vm.network "private_network", ip: "192.168.1.10"
+      cfg.vm.network "forwarded_port", guest: 22, host: 60010, auto_correct: true, id: "ssh"
+
+      
+      cfg.vm.provider "virtualbox" do |vb|
+        vb.gui = false
+        vb.cpus = 4
+        vb.memory = 8192
+      end
+      
+      cfg.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        apt-get upgrade -y
+      SHELL
+
+    end
+
+  #==============#
+  # Worker Nodes #
+  #==============#
+
+  (1..N).each do |i|
+    config.vm.define "w-k8s-worker#{i}" do |cfg|
+      cfg.vm.box = "whatwant/Ubuntu-20.04-Server" 
+      cfg.vm.box_version = "0.2.0"
+      
+      cfg.vm.host_name = "worker#{i}"
+      cfg.vm.network "private_network", ip: "192.168.1.1#{i}"
+      cfg.vm.network "forwarded_port", guest: 22, host: "6010#{i}", auto_correct: true, id: "ssh"
+
+
+      cfg.vm.provider "virtualbox" do |vb|
+        vb.gui = false
+        vb.cpus = 4
+        vb.memory = 8192
+      end
+      
+      cfg.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        apt-get upgrade -y
+      SHELL
+      
+    end
+  end
+
+end
