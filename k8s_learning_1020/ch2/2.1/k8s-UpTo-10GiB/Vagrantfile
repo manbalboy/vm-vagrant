@@ -19,9 +19,9 @@ Vagrant.configure("2") do |config|
     config.vm.define "m-k8s-#{k8s_V[0..3]}" do |cfg|
       cfg.vm.box = "sysnet4admin/CentOS-k8s"
       cfg.vm.provider "virtualbox" do |vb|
-        vb.name = "m-k8s-#{k8s_V[0..3]}(github_SysNet4Admin)"
-        vb.cpus = 2
-        vb.memory = 2048
+        vb.name = "master-k8s"
+        vb.cpus = 3
+        vb.memory = 4096
         vb.customize ["modifyvm", :id, "--groups", "/k8s-SgMST-#{k8s_V[0..3]}(github_SysNet4Admin)"]
       end
       cfg.vm.host_name = "m-k8s"
@@ -41,9 +41,9 @@ Vagrant.configure("2") do |config|
     config.vm.define "w#{i}-k8s-#{k8s_V[0..3]}" do |cfg|
       cfg.vm.box = "sysnet4admin/CentOS-k8s"
       cfg.vm.provider "virtualbox" do |vb|
-        vb.name = "w#{i}-k8s-#{k8s_V[0..3]}(github_SysNet4Admin)"
-        vb.cpus = 1
-        vb.memory = 1536
+        vb.name = "worker#{i}-k8s"
+        vb.cpus = 3
+        vb.memory = 4096
         vb.customize ["modifyvm", :id, "--groups", "/k8s-SgMST-#{k8s_V[0..3]}(github_SysNet4Admin)"]
       end
       cfg.vm.host_name = "w#{i}-k8s"
