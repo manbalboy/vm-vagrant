@@ -19,10 +19,10 @@ Vagrant.configure("2") do |config|
     config.vm.define "WO-m-k8s-#{k8s_V[0..3]}" do |cfg|
       cfg.vm.box = "sysnet4admin/CentOS-k8s"
       cfg.vm.provider "virtualbox" do |vb|
-        vb.name = "WO-m-k8s-#{k8s_V[0..3]}(github_SysNet4Admin)"
+        vb.name = "WO-m-k8s-#{k8s_V[0..3]}(github_manbalboy)"
         vb.cpus = 2
         vb.memory = 1746
-        vb.customize ["modifyvm", :id, "--groups", "/WO-k8s-SgMST-#{k8s_V[0..3]}(github_SysNet4Admin)"]
+        vb.customize ["modifyvm", :id, "--groups", "/WO-k8s-SgMST-#{k8s_V[0..3]}(github_manbalboy)"]
       end
       cfg.vm.host_name = "m-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.10"
@@ -42,10 +42,10 @@ Vagrant.configure("2") do |config|
     config.vm.define "WO-w#{i}-k8s-#{k8s_V[0..3]}" do |cfg|
       cfg.vm.box = "sysnet4admin/CentOS-k8s"
       cfg.vm.provider "virtualbox" do |vb|
-        vb.name = "WO-w#{i}-k8s-#{k8s_V[0..3]}(github_SysNet4Admin)"
+        vb.name = "WO-w#{i}-k8s-#{k8s_V[0..3]}(github_manbalboy)"
         vb.cpus = 1
         vb.memory = 1024
-        vb.customize ["modifyvm", :id, "--groups", "/WO-k8s-SgMST-#{k8s_V[0..3]}(github_SysNet4Admin)"]
+        vb.customize ["modifyvm", :id, "--groups", "/WO-k8s-SgMST-#{k8s_V[0..3]}(github_manbalboy)"]
       end
       cfg.vm.host_name = "w#{i}-k8s"
       cfg.vm.network "private_network", ip: "192.168.1.10#{i}"
