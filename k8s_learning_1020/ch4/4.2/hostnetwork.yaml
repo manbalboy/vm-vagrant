@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hnet-chk-hn
+spec:
+  hostNetwork: true
+  containers:
+    - name: chk-hn
+      image: sysnet4admin/chk-hn 
+

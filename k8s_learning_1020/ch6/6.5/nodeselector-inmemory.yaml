@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodeselector-inmemory
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  nodeSelector:
+    inmemory: redis
+

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deploy-after-taints
+  name: deploy-after-taints
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: deploy-after-taints
+  template:
+    metadata:
+      labels:
+        app: deploy-after-taints
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sts-chk-hn
+spec:
+  replicas: 3
+  serviceName: sts-svc-domain #statefulset need it
+  selector:
+    matchLabels:
+      app: sts
+  template:
+    metadata:
+      labels:
+        app: sts
+    spec:
+      containers:
+      - name: chk-hn
+        image: sysnet4admin/chk-hn
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test
+spec:
+  selector:
+    app: sts
+  ports:
+    - port: 80
+  clusterIP: None
